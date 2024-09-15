@@ -1,9 +1,12 @@
 const express = require('express')
 const app = express()
 const db = require('./db')
+require('dotenv').config()
 
 const bodyParser = require('body-parser')
 app.use(bodyParser.json()) //req.body
+const PORT =  process.env || 3000
+
 
 const Person = require('./models/Person')
 const MenuItem = require('./models/MenuItem')
@@ -34,7 +37,7 @@ app.post('/person', async(req, res)=>{
 app.get('/people', async(req, res) => {
   try {
     const data = await Person.find()
-    console.log('dat fetched')
+    console.log('data fetched')
     res.status(200).json(data)
   } catch (err) {
     console.log('error', err)
@@ -42,6 +45,6 @@ app.get('/people', async(req, res) => {
   }
 })
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log("listening on portal 3000")
 })
